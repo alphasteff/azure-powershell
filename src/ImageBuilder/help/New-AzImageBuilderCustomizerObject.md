@@ -50,11 +50,11 @@ Describes a unit of image customization
 
 ### Example 1: Create a windows update customizer
 ```powershell
-PS C:\> New-AzImageBuilderCustomizerObject -WindowsUpdateCustomizer -Filter ("BrowseOnly", "IsInstalled") -SearchCriterion "BrowseOnly=0 and IsInstalled=0"  -UpdateLimit 100 -CustomizerName 'WindUpdate'
+PS C:\> New-AzImageBuilderCustomizerObject -WindowsUpdateCustomizer -Filter ("exclude:`$_.Title -like '*Preview*'", "include:`$true") -SearchCriterion "BrowseOnly=0 and IsInstalled=0"  -UpdateLimit 100 -CustomizerName 'WindUpdate'
 
-Name       Type          Filter                    SearchCriterion                UpdateLimit
-----       ----          ------                    ---------------                -----------
-WindUpdate WindowsUpdate {BrowseOnly, IsInstalled} BrowseOnly=0 and IsInstalled=0 100
+Name       Type          Filter                                              SearchCriterion                UpdateLimit
+----       ----          ------                                              ---------------                -----------
+WindUpdate WindowsUpdate {exclude:$_.Title -like '*Preview*', include:$true} BrowseOnly=0 and IsInstalled=0 100 
 ```
 
 This command creates a windows update customizer.
